@@ -39,7 +39,7 @@ Vagrant.configure(2) do |config|
     # v.vm.network :forwarded_port, guest: 443, host: 10443 # ssl disabled by default
 
     # virtualbox
-    vebs.vm.provider :virtualbox do |provider, override|
+    v.vm.provider :virtualbox do |provider, override|
       provider.memory = options[:max_memory]
       provider.customize ['setextradata', :id, 'VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant', '1']
     end
