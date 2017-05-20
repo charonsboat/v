@@ -16,8 +16,8 @@ gh_url    = "https://raw.githubusercontent.com/#{gh_user}/#{gh_repo}/#{gh_branch
 # path to .v dir
 v_path = '.v'
 
-# if environment isn't 'dev', use remote scripts
-v_path.prepend gh_url unless ENV['ENV'] == 'dev'
+# use remote scripts by default, local if specified
+v_path.prepend gh_url unless ENV['local']
 
 
 # Vagrant Configuration
@@ -30,7 +30,7 @@ Vagrant.configure 2 do |config|
   config.vm.define :v do |v|
 
     # base box
-    v.vm.box = 'ubuntu/trusty64'
+    v.vm.box = 'ubuntu/xenial64'
 
     # network configuration
     v.vm.network :forwarded_port, guest: 80,  host: 10080
@@ -41,5 +41,11 @@ Vagrant.configure 2 do |config|
       provider.memory = options[:max_memory]
       provider.customize ['setextradata', :id, 'VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant', '1']
     end
+
+
+    ## provision stuff
+
+    # docker
+    v.vm.provision :shell, privileged: false, path: "#{v_path}/packages/docker.sh", args: []
   end
 end
