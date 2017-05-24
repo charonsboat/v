@@ -47,5 +47,8 @@ Vagrant.configure 2 do |config|
 
     # docker
     v.vm.provision :shell, privileged: false, path: "#{v_path}/packages/docker.sh", args: []
+
+    # docker-compose
+    v.vm.provision :shell, privileged: false, path: "#{v_path}/packages/docker-compose.sh", run: :always, args: []
   end
 end

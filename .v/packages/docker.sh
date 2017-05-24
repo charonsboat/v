@@ -6,10 +6,10 @@ sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58
 # add docker repo
 sudo apt-add-repository 'deb https://apt.dockerproject.org/repo ubuntu-xenial main'
 
-# update apt
+# update apt repos
 sudo apt-get update
 
-# install docker-engine
+# install docker
 sudo apt-get install -y docker-engine
 
 # add yourself to the docker group (yay, no sudo!)
