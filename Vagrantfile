@@ -1,8 +1,4 @@
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
-
-# DISCLAIMER: This project is not ready for stable use yet. Use at your own risk. Many changes will come.
-
+require 'yaml'
 
 # GitHub Configuration
 
@@ -42,6 +38,9 @@ Vagrant.configure 2 do |config|
       provider.customize ['setextradata', :id, 'VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant', '1']
     end
 
+    # load projects.yaml if it exists
+    projects = File.file?('projects.yaml') ? YAML.load_file('projects.yaml') : []
+
 
     ## provision stuff
 
@@ -49,6 +48,6 @@ Vagrant.configure 2 do |config|
     v.vm.provision :shell, privileged: false, path: "#{v_path}/packages/docker.sh", args: []
 
     # docker-compose
-    v.vm.provision :shell, privileged: false, path: "#{v_path}/packages/docker-compose.sh", run: :always, args: []
+    v.vm.provision :shell, privileged: false, path: "#{v_path}/packages/docker-compose.sh", run: :always, args: projects
   end
 end
