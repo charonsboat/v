@@ -26,9 +26,10 @@ Vagrant.configure 2 do |config|
   config.vm.define :v do |v|
 
     # base box
-    v.vm.box = 'ubuntu/xenial64'
+    v.vm.box = 'bento/ubuntu-16.04'
 
     # network configuration
+    v.vm.network :private_network, ip: '192.168.11.55'
     v.vm.network :forwarded_port, guest: 80,  host: 10080
     # v.vm.network :forwarded_port, guest: 443, host: 10443 # ssl disabled by default
 
